@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Triagem Endolife - Questionário de Triagem para Endometriose">
+    <meta name="theme-color" content="#e6358b">
+    <title>Triagem Endolife - Score Endoflow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-header">
+                <h1 class="logo-text">endo life</h1>
+                <span class="logo-icon">℮</span>
+            </div>
+            <h2>Triagem de Endometriose</h2>
+            <p class="subtitle">Score Endoflow - Autoaplicável</p>
+        </header>
+
+        <!-- SEÇÃO 1: TERMO DE CONSENTIMENTO LGPD -->
+        <section id="consent-section" class="section active">
+            <h3>Termo de Consentimento LGPD</h3>
+            <div class="consent-box">
+                <p class="consent-text">
+                    <strong>Proteção de Dados e Privacidade</strong><br><br>
+                    Ao prosseguir com este questionário de triagem, você manifesta seu consentimento livre, informado e inequívoco para que os dados fornecidos (Nome, Idade, Celular e respostas do questionário) sejam utilizados para fins de pesquisa científica, aprimoramento do modelo de triagem <strong>Score Endoflow</strong> e estudos epidemiológicos sobre endometriose.<br><br>
+                    <strong>Garantias:</strong><br>
+                    • Seus dados serão tratados em conformidade com a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018).<br>
+                    • Todos os dados pessoais serão mantidos em <strong>sigilo absoluto</strong>.<br>
+                    • Para qualquer publicação de resultados, seus dados serão <strong>anonimizados</strong>, impossibilitando sua identificação pessoal.<br>
+                    • O número de celular será utilizado exclusivamente para comunicação sobre o resultado da triagem e encaminhamento médico, se necessário.<br><br>
+                    <strong>Este questionário é uma ferramenta de triagem e não substitui a avaliação médica profissional.</strong>
+                </p>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="consent-checkbox" name="consent" required>
+                <label for="consent-checkbox">Concordo com os termos acima e desejo continuar com a triagem</label>
+            </div>
+            <button type="button" id="consent-btn" class="btn-primary" onclick="proceedToRegistration()">Continuar</button>
+        </section>
+
+        <!-- SEÇÃO 2: CADASTRO -->
+        <section id="registration-section" class="section">
+            <h3>Cadastro Simplificado</h3>
+            <form id="registration-form">
+                <div class="form-group">
+                    <label for="name">Nome Completo *</label>
+                    <input type="text" id="name" name="name" placeholder="Digite seu nome" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="age">Idade *</label>
+                    <input type="number" id="age" name="age" min="13" max="120" placeholder="Digite sua idade" required>
+                    <small>Se você tem menos de 18 anos, você deve ter a autorização de um responsável legal para continuar.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Celular (WhatsApp) *</label>
+                    <input type="tel" id="phone" name="phone" placeholder="(XX) XXXXX-XXXX" required>
+                    <small>Formato: (XX) XXXXX-XXXX</small>
+                </div>
+
+                <div id="minor-consent" class="form-group" style="display: none;">
+                    <input type="checkbox" id="minor-checkbox" name="minor-consent">
+                    <label for="minor-checkbox">Sou menor de 18 anos e tenho a autorização de um responsável legal para responder este questionário</label>
+                </div>
+
+                <button type="button" class="btn-primary" onclick="proceedToQuestionnaire()">Iniciar Triagem</button>
+            </form>
+        </section>
+
+        <!-- SEÇÃO 3: QUESTIONÁRIO -->
+        <section id="questionnaire-section" class="section">
+            <p class="instruction">Por favor, responda às perguntas a seguir. Para as perguntas sobre dor, use a escala de 0 a 10, onde 0 significa <strong>"sem dor"</strong> e 10 significa <strong>"a pior dor que você já sentiu"</strong>.</p>
+
+            <form id="screening-form" aria-label="Formulário de Triagem para Endometriose">
+                <!-- Pergunta 1: Dor Menstrual (Cólica) (P1: 11 pontos) -->
+                <div class="question-block">
+                    <div class="question-header">
+                        <label for="p1">
+                            <span class="question-number">1</span>
+                            <span class="question-text">A sua cólica menstrual (dor durante a menstruação) é forte?</span>
+                            <span class="emoji">🤕</span>
+                        </label>
+                        <button type="button" class="audio-btn" aria-label="Ouvir pergunta 1" onclick="speakText('A sua cólica menstrual (dor durante a menstruação) é forte? Classifique a intensidade em uma escala de 0 a 10, onde 0 é sem dor e 10 é a pior dor que você já sentiu.')">🔊</button>
+                    </div>
+                    <p class="sub-instruction">Classifique a intensidade em uma escala de 0 a 10:</p>
+                    <div class="scale-container">
+                        <div class="scale-labels">
+                            <span>0<br><small>Sem dor</small></span>
+                            <span>5<br><small>Dor moderada</small></span>
+                            <span>10<br><small>Pior dor</small></span>
+                        </div>
+                        <input type="range" id="p1" name="p1" min="0" max="10" value="0" class="slider" aria-label="Escala de dor menstrual de 0 a 10">
+                        <div class="scale-value"><span id="p1-value">0</span>/10</div>
+                    </div>
+                </div>
+
+                <!-- Pergunta 2: Dor na Relação Sexual (P2: 6 pontos) -->
+                <div class="question-block">
+                    <div class="question-header">
+                        <label for="p2">
+                            <span class="question-number">2</span>
+                            <span class="question-text">Você sente dor profunda durante ou após o sexo (relação sexual)?</span>
+                            <span class="emoji">💔</span>
+                        </label>
+                        <button type="button" class="audio-btn" aria-label="Ouvir pergunta 2" onclick="speakText('Você sente dor profunda durante ou após o sexo (relação sexual)? Classifique a intensidade em uma escala de 0 a 10.')">🔊</button>
+                    </div>
+                    <p class="sub-instruction">Classifique a intensidade em uma escala de 0 a 10:</p>
+                    <div class="scale-container">
+                        <div class="scale-labels">
+                            <span>0<br><small>Sem dor</small></span>
+                            <span>5<br><small>Dor moderada</small></span>
+                            <span>10<br><small>Pior dor</small></span>
+                        </div>
+                        <input type="range" id="p2" name="p2" min="0" max="10" value="0" class="slider" aria-label="Escala de dor na relação sexual de 0 a 10">
+                        <div class="scale-value"><span id="p2-value">0</span>/10</div>
+                    </div>
+                </div>
+
+                <!-- Pergunta 3: Sintomas Intestinais (P3: 14 pontos) -->
+                <div class="question-block">
+                    <div class="question-header">
+                        <label for="p3">
+                            <span class="question-number">3</span>
+                            <span class="question-text">Você sente dor ou desconforto intestinal (ex: dor ao evacuar, diarreia, inchaço) forte durante a menstruação?</span>
+                            <span class="emoji">🚽</span>
+                        </label>
+                        <button type="button" class="audio-btn" aria-label="Ouvir pergunta 3" onclick="speakText('Você sente dor ou desconforto intestinal, como dor ao evacuar, diarreia ou inchaço, forte durante a menstruação? Classifique a intensidade em uma escala de 0 a 10.')">🔊</button>
+                    </div>
+                    <p class="sub-instruction">Classifique a intensidade em uma escala de 0 a 10:</p>
+                    <div class="scale-container">
+                        <div class="scale-labels">
+                            <span>0<br><small>Sem dor</small></span>
+                            <span>5<br><small>Dor moderada</small></span>
+                            <span>10<br><small>Pior dor</small></span>
+                        </div>
+                        <input type="range" id="p3" name="p3" min="0" max="10" value="0" class="slider" aria-label="Escala de dor intestinal de 0 a 10">
+                        <div class="scale-value"><span id="p3-value">0</span>/10</div>
+                    </div>
+                </div>
+
+                <!-- Pergunta 4: Sintomas Urinários (P4: 12 pontos) -->
+                <div class="question-block">
+                    <div class="question-header">
+                        <label for="p4">
+                            <span class="question-number">4</span>
+                            <span class="question-text">Você sente dor ao urinar, ou percebe sangue na urina, principalmente durante a menstruação?</span>
+                            <span class="emoji">🚻</span>
+                        </label>
+                        <button type="button" class="audio-btn" aria-label="Ouvir pergunta 4" onclick="speakText('Você sente dor ao urinar, ou percebe sangue na urina, principalmente durante a menstruação?')">🔊</button>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="p4_yes" name="p4" value="12" required>
+                        <label for="p4_yes">Sim</label>
+                        <input type="radio" id="p4_no" name="p4" value="0">
+                        <label for="p4_no">Não</label>
+                    </div>
+                </div>
+
+                <!-- Pergunta 5: Histórico Familiar (P5: 14 pontos) -->
+                <div class="question-block">
+                    <div class="question-header">
+                        <label for="p5">
+                            <span class="question-number">5</span>
+                            <span class="question-text">Você tem mãe ou irmã com diagnóstico confirmado de endometriose?</span>
+                            <span class="emoji">👩‍👧</span>
+                        </label>
+                        <button type="button" class="audio-btn" aria-label="Ouvir pergunta 5" onclick="speakText('Você tem mãe ou irmã com diagnóstico confirmado de endometriose?')">🔊</button>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="p5_yes" name="p5" value="14" required>
+                        <label for="p5_yes">Sim</label>
+                        <input type="radio" id="p5_no" name="p5" value="0">
+                        <label for="p5_no">Não</label>
+                    </div>
+                </div>
+
+                <!-- Pergunta 6: Infertilidade Primária (P6: 6 pontos) -->
+                <div class="question-block">
+                    <div class="question-header">
+                        <label for="p6">
+                            <span class="question-number">6</span>
+                            <span class="question-text">Você está tentando engravidar há 12 meses ou mais sem sucesso, e nunca engravidou antes?</span>
+                            <span class="emoji">🤰</span>
+                        </label>
+                        <button type="button" class="audio-btn" aria-label="Ouvir pergunta 6" onclick="speakText('Você está tentando engravidar há 12 meses ou mais sem sucesso, e nunca engravidou antes?')">🔊</button>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="p6_yes" name="p6" value="6" required>
+                        <label for="p6_yes">Sim</label>
+                        <input type="radio" id="p6_no" name="p6" value="0">
+                        <label for="p6_no">Não</label>
+                    </div>
+                </div>
+
+                <!-- Pergunta 7: Fadiga Crônica (P7: 7 pontos) -->
+                <div class="question-block">
+                    <div class="question-header">
+                        <label for="p7">
+                            <span class="question-number">7</span>
+                            <span class="question-text">Você sente um cansaço (fadiga) constante, que não melhora com o descanso e atrapalha suas atividades diárias?</span>
+                            <span class="emoji">😴</span>
+                        </label>
+                        <button type="button" class="audio-btn" aria-label="Ouvir pergunta 7" onclick="speakText('Você sente um cansaço ou fadiga constante, que não melhora com o descanso e atrapalha suas atividades diárias?')">🔊</button>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="p7_yes" name="p7" value="7" required>
+                        <label for="p7_yes">Sim</label>
+                        <input type="radio" id="p7_no" name="p7" value="0">
+                        <label for="p7_no">Não</label>
+                    </div>
+                </div>
+
+                <!-- Pergunta 8: Sangramento Intenso (P8: 7 pontos) -->
+                <div class="question-block">
+                    <div class="question-header">
+                        <label for="p8">
+                            <span class="question-number">8</span>
+                            <span class="question-text">Seu fluxo menstrual é muito intenso (ex: troca de absorvente a cada 1-2h) ou dura mais de 7 dias?</span>
+                            <span class="emoji">🩸</span>
+                        </label>
+                        <button type="button" class="audio-btn" aria-label="Ouvir pergunta 8" onclick="speakText('Seu fluxo menstrual é muito intenso, por exemplo, você precisa trocar de absorvente a cada 1 ou 2 horas, ou dura mais de 7 dias?')">🔊</button>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="p8_yes" name="p8" value="7" required>
+                        <label for="p8_yes">Sim</label>
+                        <input type="radio" id="p8_no" name="p8" value="0">
+                        <label for="p8_no">Não</label>
+                    </div>
+                </div>
+
+                <button type="submit" id="calculate-btn" class="btn-primary" aria-label="Calcular Score">Calcular Score Endoflow</button>
+            </form>
+        </section>
+
+        <!-- SEÇÃO 4: RESULTADO -->
+        <section id="result-section" class="section">
+            <div id="result-area" class="hidden" role="region" aria-live="polite" aria-label="Resultado da Triagem">
+                <h2>Seu Score Endoflow: <span id="score-value">0</span> pontos</h2>
+                <div id="risk-level"></div>
+                <div id="recommendation"></div>
+                
+                <!-- Botão WhatsApp para Resultados Positivos -->
+                <div id="whatsapp-section" class="whatsapp-section hidden">
+                    <p class="whatsapp-text">Deseja conversar com um especialista sobre seu resultado?</p>
+                    <a href="https://wa.me/5513996156944?text=Olá! Realizei a triagem Score Endoflow e gostaria de conversar sobre meu resultado." target="_blank" class="btn-whatsapp">
+                        💬 Conversar no WhatsApp
+                    </a>
+                </div>
+
+                <button type="button" id="reset-btn" class="btn-primary" onclick="resetForm()">Fazer Nova Triagem</button>
+                <p class="disclaimer">⚠️ <strong>Importante:</strong> Este questionário é uma ferramenta de triagem e <strong>não substitui</strong> a avaliação médica e o diagnóstico definitivo. Procure um médico especialista para confirmação.</p>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
