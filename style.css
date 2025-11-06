@@ -292,16 +292,18 @@ input[type="tel"]:focus {
 
 .eva-container {
     margin: 20px 0;
+    width: 100%;
 }
 
 .eva-slider {
-    width: 100%;
+    width: 100% !important;
     height: 8px;
     border-radius: 4px;
-    background: linear-gradient(to right, #4caf50, #ffeb3b, #ff9800, #f44336);
+    background: linear-gradient(to right, #4caf50, #ffeb3b, #ff9800, #f44336) !important;
     outline: none;
     -webkit-appearance: none;
     appearance: none;
+    display: block;
 }
 
 .eva-slider::-webkit-slider-thumb {
@@ -328,9 +330,17 @@ input[type="tel"]:focus {
 .eva-labels {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-top: 10px;
     color: #555 !important;
     font-size: 0.9em;
+    width: 100%;
+    flex-wrap: nowrap;
+}
+
+.eva-labels span {
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .eva-value {
