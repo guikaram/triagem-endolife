@@ -292,18 +292,16 @@ input[type="tel"]:focus {
 
 .eva-container {
     margin: 20px 0;
-    width: 100%;
 }
 
 .eva-slider {
-    width: 100% !important;
+    width: 100%;
     height: 8px;
     border-radius: 4px;
-    background: linear-gradient(to right, #4caf50, #ffeb3b, #ff9800, #f44336) !important;
+    background: linear-gradient(to right, #4caf50, #ffeb3b, #ff9800, #f44336);
     outline: none;
     -webkit-appearance: none;
     appearance: none;
-    display: block;
 }
 
 .eva-slider::-webkit-slider-thumb {
